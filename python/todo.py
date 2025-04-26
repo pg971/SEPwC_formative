@@ -11,8 +11,19 @@ def add_task(task):
     """
 
 def list_tasks():
-    return
-
+    try:
+        with open(TASK_FILE, "r", encoding="utf-8") as file:
+            tasks = file.readlines()
+            counter = 1 
+            output_string=""
+        #iterate through all tasks except last
+            for i in range(len(tasks)-1):
+                task = tasks[i]
+                output_string = output_string + str(counter) + ". " + task
+                counter = counter + 1 
+            return output_string
+    except FileNotFoundError:
+        return"No tasks found." 
 
 def remove_task(index):
     return
