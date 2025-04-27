@@ -26,6 +26,29 @@ def list_tasks():
         return"No tasks found." 
 
 def remove_task(index):
+    try: 
+        with open(TASK_FILE, "r", encoding="utf-8") as file: 
+            tasks = file.readlines() 
+            
+        if 1 <= index <= len(tasks): 
+            # Python index starts at 0 therefore - 1 to get correct position in list
+            index_to_remove = index - 1 
+            del tasks[index_to_remove]
+            
+            with open(TASK_FILE, "w", encoding="utf-8") as file: 
+                counter = 1 
+                for task in tasks: 
+                    file.write(f"{counter}. {task.split('.', 1)[-1]}") # Assign number to next task 
+                    counter += 1
+        else: 
+            pass 
+        
+    except FileNotFoundError:
+        print(f"Error: Task file '{TASK_FILE}' not found.")
+        
+    TASK_FILE = ".tasks.txt"
+                    
+            
     return
 
 def main():
